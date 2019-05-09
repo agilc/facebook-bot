@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 var webhookRouter = require('./routes/webhook');
 var messagesRouter = require('./routes/message');
 
+const { MONGODB_URL } = require('./constants/app');
+
 var app = express();
 
 // view engine setup
@@ -23,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoUrl = 'mongodb://admin:admin123@ds211625.mlab.com:11625/facebook-bot';
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
+mongoose.connect(MONGODB_URL, { useNewUrlParser: true })
     .then(()=> console.log("Connected to MongoDB"))
     .catch(error => console.error("Could not connect to mongoDB",error));
 

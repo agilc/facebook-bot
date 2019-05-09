@@ -1,5 +1,6 @@
 'use strict';
 const webhookService = require('../service/webhook');
+const { FACEBOOK_VERIFICATION_TOKEN } = require('../constants/app');
 
 exports.postWebhook = async (req,res) => {
     let body = req.body;
@@ -22,7 +23,7 @@ exports.postWebhook = async (req,res) => {
 
 exports.getWebhook = async (req,res) => {
    // Your verify token. Should be a random string.
-   let VERIFY_TOKEN = "0c46deb2-d260-44c5-8046-b76c366107ca"
+   let VERIFY_TOKEN = FACEBOOK_VERIFICATION_TOKEN
       
    // Parse the query params
    let mode = req.query['hub.mode'];

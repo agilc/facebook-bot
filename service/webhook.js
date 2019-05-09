@@ -1,11 +1,12 @@
 'use strict';
 const axios = require('axios');
 const { Message, validateMessage} = require('../model/message');
+const { FACEBOOK_MESSAGE_URL, FACEBOOK_APP_ACCESS_TOKEN } = require('../constants/app');
 
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'no', 'nah'];
 let lastBirthDay = "";
-let accessToken = "EAAGsqZBYf2AUBAGTQFDUcN5pZAKg2ZBLhQdHGs2fJpjxhZBMxLQPB18fgmHEMLdFm1KYI3PzVdkKaN0iPhMiA1eHlBDoGOe9r3s0f26fpArpbazXuVcfoChExhk91r4ZCWj6mqumumH2EvAABynCszEoIZC4m6MyKC0RbuGasZBpDYCe782FUcY";
+let accessToken = FACEBOOK_APP_ACCESS_TOKEN;
 
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
@@ -27,7 +28,7 @@ module.exports.botResponse = async webhookData => {
 let sendResponse = async (type, recipientId) => {
     let response = "";
     let message = "";
-    let messageUrl = `https://graph.facebook.com/v3.3/me/messages?access_token=${accessToken}`;
+    let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${accessToken}`;
     let messageBody = "";
     console.log("in send response");
     if(type === "hi"){
