@@ -7,7 +7,7 @@ let accessToken = "EAAEQVIclHOoBAHcfcTFhKmkJOQLzGhqWZAUFxWYaMPQcmga7ixmoZBgPf83b
 
 module.exports.botResponse = async message => {
     if(message.message.text){
-        console.log("Result",result);
+        console.log("message",message);
         sendResponse(message.message.text, message.sender.id);
     }
 }
@@ -107,13 +107,5 @@ let sendResponse = async (type, recipientId) => {
         url: messageUrl,
         data: messageBody
     })
-    console.log("Bot response",response);
-    const bot = new Bot({
-        message: message,
-        customerId: recipientId,
-        direction: "FROM_STORE"
-    });
-    
-    await bot.save();
     console.log("Write success");
 }
