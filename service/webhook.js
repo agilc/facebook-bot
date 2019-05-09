@@ -6,7 +6,6 @@ const { FACEBOOK_MESSAGE_URL, FACEBOOK_APP_ACCESS_TOKEN } = require('../constant
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'no', 'nah'];
 let lastBirthDay = "";
-let accessToken = FACEBOOK_APP_ACCESS_TOKEN;
 
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
@@ -28,7 +27,7 @@ module.exports.botResponse = async webhookData => {
 let sendResponse = async (type, recipientId) => {
     let response = "";
     let message = "";
-    let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${accessToken}`;
+    let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${FACEBOOK_APP_ACCESS_TOKEN}`;
     let messageBody = "";
     console.log("in send response");
     if(type === "hi"){
