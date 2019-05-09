@@ -27,3 +27,16 @@ exports.getMessage = async (filter,res) => {
 
     
 }
+
+exports.deleteMessage = async (messageId,res) => {
+    try{
+        let messages = await Message.findByIdAndRemove(messageId);
+        res.status(200).send(messages);
+    }
+    catch(error){
+        console.log("error while deleting a message",error);
+        res.status(500);
+    }
+
+    
+}
