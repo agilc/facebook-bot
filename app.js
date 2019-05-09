@@ -23,7 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const mongoUrl = 'mongodb://admin:admin123@ds211625.mlab.com:11625/facebook-bot';
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 mongoose.connect(MONGODB_URL, { useNewUrlParser: true })
     .then(()=> console.log("Connected to MongoDB"))

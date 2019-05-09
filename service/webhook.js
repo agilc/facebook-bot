@@ -1,6 +1,6 @@
 'use strict';
 const axios = require('axios');
-const { Message, validateMessage} = require('../model/message');
+const { Message } = require('../model/message');
 const { FACEBOOK_MESSAGE_URL, FACEBOOK_APP_ACCESS_TOKEN } = require('../constants/app');
 
 let userResponsesYes = ['yes', 'yeah','yup'];
