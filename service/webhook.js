@@ -18,7 +18,7 @@ module.exports.botResponse = async webhookData => {
         });
         
         const result = await message.save();
-        console.log("Result",result);
+        // console.log("Result",result);
 
         sendResponse(webhookData.message.text, webhookData.sender.id);
     }
@@ -120,7 +120,7 @@ let sendResponse = async (type, recipientId) => {
             data: messageBody
         })
 
-        console.log("Bot response",response);
+        // console.log("Bot response",response);
         const message = new Message({
             message: message,
             customerId: recipientId,
