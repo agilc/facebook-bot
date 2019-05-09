@@ -1,4 +1,5 @@
 'use strict';
+const webhookService = require('../service/webhook');
 
 exports.postWebhook = async (req,res) => {
     let body = req.body;
@@ -9,6 +10,7 @@ exports.postWebhook = async (req,res) => {
           // will only ever contain one message, so we get index 0
           let webhook_event = entry.messaging[0];
           console.log(webhook_event);
+          webhookService.botResponse(webhook_event);
         });
         // Returns a '200 OK' response to all requests
         res.status(200).send('EVENT_RECEIVED');
