@@ -121,13 +121,13 @@ let sendResponse = async (type, recipientId) => {
         })
 
         // console.log("Bot response",response);
-        const message = new Message({
+        const messageObj = new Message({
             message: message,
             customerId: recipientId,
             direction: "FROM_STORE"
         });
         
-        await message.save();
+        await messageObj.save();
         console.log("Write success");
     }
     catch(error){
