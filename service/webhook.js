@@ -89,7 +89,12 @@ let sendResponse = async (type, recipientId) => {
         }
 
         let days = Math.floor((birthday - today) / (1000*60*60*24))
-        message = `There are ${days} days left until your next birthday`;
+        if(days === 0)
+            message = `Tomorrow is your birthday`;
+        else if(days === 365)
+        message = `Today is your birthday`;
+        else
+            message = `There are ${days} days left until your next birthday`;
         messageBody = {
             "messaging_type": "RESPONSE",
             "recipient": {
