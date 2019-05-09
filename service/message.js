@@ -14,3 +14,16 @@ exports.getAllReceivedMessages = async (filter,res) => {
 
     
 }
+
+exports.getMessage = async (filter,res) => {
+    try{
+        let messages = await Message.find(filter);
+        res.status(200).send(messages);
+    }
+    catch(error){
+        console.log("error while getting a message details",error);
+        res.status(500);
+    }
+
+    
+}

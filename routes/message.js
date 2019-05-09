@@ -5,5 +5,6 @@ let messageController = require('../controller/message');
 
 /* GET users listing. */
 router.get('/messages', messageController.getAllReceivedMessages);
+router.get('/message/:id', messageController.getMessage);
 
 module.exports = router;
