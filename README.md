@@ -42,9 +42,9 @@ The application will save all the messages in the Database for persistance, and 
 
 
 The app is deployed in heroku currently. Can use 3 end points(mentioned above) to interact with DB, they are
-    1. https://facebook-bot-task.herokuapp.com/messages
-    2. https://facebook-bot-task.herokuapp.com/message/{id} 
-    3. https://facebook-bot-task.herokuapp.com/message/{id}
+1. https://facebook-bot-task.herokuapp.com/messages
+2. https://facebook-bot-task.herokuapp.com/message/{id} 
+3. https://facebook-bot-task.herokuapp.com/message/{id}
 
 The MongoDB is hosted at mLAb.
 
