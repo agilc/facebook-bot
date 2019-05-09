@@ -3,7 +3,7 @@ let axios = require('axios');
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'no', 'nah'];
 let lastBirthDay = "";
-let accessToken = "EAAEQVIclHOoBAHcfcTFhKmkJOQLzGhqWZAUFxWYaMPQcmga7ixmoZBgPf83b9aP9s9xGu5wVxECzJxhCKKAIl2KTxiqwNff5TFBWXLcmhoAYHactM8TV37ZB8CfZBi2jJ3k6VcmyDBMtwz7ODvIDqUd7TKHItTAb7YqIYEvAPy3JztMeXrup";
+let accessToken = "EAAGsqZBYf2AUBAGTQFDUcN5pZAKg2ZBLhQdHGs2fJpjxhZBMxLQPB18fgmHEMLdFm1KYI3PzVdkKaN0iPhMiA1eHlBDoGOe9r3s0f26fpArpbazXuVcfoChExhk91r4ZCWj6mqumumH2EvAABynCszEoIZC4m6MyKC0RbuGasZBpDYCe782FUcY";
 
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
@@ -101,11 +101,16 @@ let sendResponse = async (type, recipientId) => {
         };
         
     }
-
-    response = await axios({
-        method: 'post',
-        url: messageUrl,
-        data: messageBody
-    })
-    console.log("Write success");
+    try{
+        response = await axios({
+            method: 'post',
+            url: messageUrl,
+            data: messageBody
+        })
+    }
+    catch(error){
+        console.log("error",error);
+    }
+    
+    console.log("Write success",response);
 }
