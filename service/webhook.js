@@ -1,14 +1,14 @@
 'use strict';
-
+let axios = require('axios');
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'no', 'nah'];
 let lastBirthDay = "";
 let accessToken = "EAAEQVIclHOoBAHcfcTFhKmkJOQLzGhqWZAUFxWYaMPQcmga7ixmoZBgPf83b9aP9s9xGu5wVxECzJxhCKKAIl2KTxiqwNff5TFBWXLcmhoAYHactM8TV37ZB8CfZBi2jJ3k6VcmyDBMtwz7ODvIDqUd7TKHItTAb7YqIYEvAPy3JztMeXrup";
 
-module.exports.botResponse = async message => {
-    if(message.message.text){
-        console.log("message",message);
-        sendResponse(message.message.text, message.sender.id);
+module.exports.botResponse = async webhookData => {
+    if(webhookData.message.text){
+        console.log("message",webhookData);
+        sendResponse(webhookData.message.text, webhookData.sender.id);
     }
 }
 
