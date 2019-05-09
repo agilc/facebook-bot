@@ -1,5 +1,7 @@
 'use strict';
-let axios = require('axios');
+const axios = require('axios');
+const { Message, validateMessage} = require('../model/message');
+
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'no', 'nah'];
 let lastBirthDay = "";
@@ -8,6 +10,16 @@ let accessToken = "EAAGsqZBYf2AUBAGTQFDUcN5pZAKg2ZBLhQdHGs2fJpjxhZBMxLQPB18fgmHE
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
         console.log("message",webhookData);
+
+        const message = new Message({
+            message: webhookData.message.text,
+            customerId: webhookData.recipient.id,
+            direction: "FROM_CUSTOMER"
+        });
+        
+        const result = await message.save();
+        console.log("Result",result);
+
         sendResponse(webhookData.message.text, webhookData.sender.id);
     }
 }
@@ -107,6 +119,16 @@ let sendResponse = async (type, recipientId) => {
             url: messageUrl,
             data: messageBody
         })
+
+        console.log("Bot response",response);
+        const message = new Message({
+            message: message,
+            customerId: recipientId,
+            direction: "FROM_STORE"
+        });
+        
+        await message.save();
+        console.log("Write success");
     }
     catch(error){
         console.log("error",error);
