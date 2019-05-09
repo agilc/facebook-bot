@@ -30,7 +30,7 @@ let sendResponse = async (type, recipientId) => {
     let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${FACEBOOK_APP_ACCESS_TOKEN}`;
     let messageBody = "";
     console.log("in send response");
-    if(type === "hi"){
+    if(type.split(" ").indexOf("hi") > -1){
         message = "May I know your first name ?";
         messageBody = {
             "messaging_type": "RESPONSE",
