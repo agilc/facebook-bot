@@ -6,7 +6,6 @@ const { FACEBOOK_MESSAGE_URL, FACEBOOK_APP_ACCESS_TOKEN } = require('../constant
 let userResponsesYes = ['yes', 'yeah','yup'];
 let userResponsesNo = ['no', 'nah'];
 let lastBirthDay = "";
-let recipientId = "";
 
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
@@ -24,7 +23,7 @@ module.exports.botResponse = async webhookData => {
     }
 }
 
-let getBotResponseMessage = userMessage => {
+let getBotResponseMessage = ( userMessage, recipientId ) => {
     let message = "";
     let messageBody= "";
     if(userMessage.split(" ").indexOf("hi") > -1){
@@ -123,11 +122,10 @@ let sendResponse = async (type, recipientId) => {
     let response = "";
     let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${FACEBOOK_APP_ACCESS_TOKEN}`;
     let messageBody = "";
-    recipientId = this.recipientId;
     console.log("in send response");    
     
     try{
-        messageBody = getBotResponseMessage(type);
+        messageBody = getBotResponseMessage(type, recipientId);
         console.log("axois send message data",messageUrl,messageBody);
         response = await axios({
             method: 'post',
