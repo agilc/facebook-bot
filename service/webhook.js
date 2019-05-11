@@ -4,8 +4,9 @@ const { Message } = require('../model/message');
 const { FACEBOOK_MESSAGE_URL, FACEBOOK_APP_ACCESS_TOKEN } = require('../constants/app');
 
 let userResponsesYes = ['yes', 'yeah','yup'];
-let userResponsesNo = ['no', 'no', 'nah'];
+let userResponsesNo = ['no', 'nah'];
 let lastBirthDay = "";
+let recipientId = "";
 
 module.exports.botResponse = async webhookData => {
     if(webhookData.message.text){
@@ -15,22 +16,18 @@ module.exports.botResponse = async webhookData => {
             message: webhookData.message.text,
             customerId: webhookData.recipient.id,
             direction: "FROM_CUSTOMER"
-        });
+         });
         
-        const result = await message.save();
-        // console.log("Result",result);
+        await message.save();
 
         sendResponse(webhookData.message.text, webhookData.sender.id);
     }
 }
 
-let sendResponse = async (type, recipientId) => {
-    let response = "";
+let getBotResponseMessage = userMessage => {
     let message = "";
-    let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${FACEBOOK_APP_ACCESS_TOKEN}`;
-    let messageBody = "";
-    console.log("in send response");
-    if(type.split(" ").indexOf("hi") > -1){
+    let messageBody= "";
+    if(userMessage.split(" ").indexOf("hi") > -1){
         message = "May I know your first name ?";
         messageBody = {
             "messaging_type": "RESPONSE",
@@ -42,7 +39,7 @@ let sendResponse = async (type, recipientId) => {
             }
         }
     }
-    else if(!Date.parse(type) && userResponsesYes.indexOf(type.toLowerCase()) == -1 && userResponsesNo.indexOf(type.toLowerCase()) == -1){
+    else if(!Date.parse(userMessage) && userResponsesYes.indexOf(userMessage.toLowerCase()) == -1 && userResponsesNo.indexOf(userMessage.toLowerCase()) == -1){
         message = "What's your birth date ?(in YYYY/MM/DD)";
         messageBody = {
             "messaging_type": "RESPONSE",
@@ -54,8 +51,8 @@ let sendResponse = async (type, recipientId) => {
             }
         }
     }
-    else if(Date.parse(type)){
-        lastBirthDay = type;
+    else if(Date.parse(userMessage)){
+        lastBirthDay = userMessage;
         message="Do you want to know how many days till next birthday ?";
         messageBody = {
             "recipient": {
@@ -80,7 +77,7 @@ let sendResponse = async (type, recipientId) => {
         }
         };
     }
-    else if( userResponsesYes.indexOf(type.toLowerCase()) !== -1){
+    else if( userResponsesYes.indexOf(userMessage.toLowerCase()) !== -1){
         var birthday = new Date(lastBirthDay);
         var today = new Date();
         birthday.setFullYear(today.getFullYear());
@@ -105,7 +102,7 @@ let sendResponse = async (type, recipientId) => {
             }
         };
     }
-    else if( userResponsesNo.indexOf(type.toLowerCase()) !== -1){
+    else if( userResponsesNo.indexOf(userMessage.toLowerCase()) !== -1){
         message = "Good Bye👋";
         messageBody = {
             "messaging_type": "RESPONSE",
@@ -118,7 +115,19 @@ let sendResponse = async (type, recipientId) => {
         };
         
     }
+
+    return messageBody;
+}
+
+let sendResponse = async (type, recipientId) => {
+    let response = "";
+    let messageUrl = `${FACEBOOK_MESSAGE_URL}?access_token=${FACEBOOK_APP_ACCESS_TOKEN}`;
+    let messageBody = "";
+    recipientId = this.recipientId;
+    console.log("in send response");    
+    
     try{
+        messageBody = getBotResponseMessage(type);
         console.log("axois send message data",messageUrl,messageBody);
         response = await axios({
             method: 'post',
@@ -128,7 +137,7 @@ let sendResponse = async (type, recipientId) => {
 
         // console.log("Bot response",response);
         const messageObj = new Message({
-            message: message,
+            message: messageBody.message.text,
             customerId: recipientId,
             direction: "FROM_STORE"
         });
@@ -142,3 +151,5 @@ let sendResponse = async (type, recipientId) => {
     
     console.log("Write success",response);
 }
+
+module.exports.getBotResponseMessage = getBotResponseMessage;
