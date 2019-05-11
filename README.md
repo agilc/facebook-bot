@@ -30,6 +30,7 @@ The application will save all the messages in the Database for persistance, and 
 2. Express.js
 3. axios
 4. MongoDB with mongoose
+5. Jest for unit testing
 
 ## How to use run this app: 
 1. clone this repo.
@@ -40,6 +41,7 @@ The application will save all the messages in the Database for persistance, and 
 6. Try sending messages from that user to the page.
 7. Bot will work.
 
+Some unit tests are included. Run the command 'npm test' to run the unit tests.
 
 The app is deployed in heroku currently. Can use 3 end points(mentioned above) to interact with DB, they are
 1. https://facebook-bot-task.herokuapp.com/messages
