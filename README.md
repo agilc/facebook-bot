@@ -42,12 +42,3 @@ The application will save all the messages in the Database for persistance, and 
 7. Bot will work.
 
 Some unit tests are included. Run the command 'npm test' to run the unit tests.
-
-The app is deployed in heroku currently. Can use 3 end points(mentioned above) to interact with DB, they are
-1. https://facebook-bot-task.herokuapp.com/messages
-2. https://facebook-bot-task.herokuapp.com/message/{id} 
-3. https://facebook-bot-task.herokuapp.com/message/{id}
-
-The MongoDB is hosted at mLAb.
-
-A simple ui is also providing. We can visit all the incoming messages from there. The URL is https://facebook-bot-ui.herokuapp.com/.
